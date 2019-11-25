@@ -7,7 +7,7 @@ Erstellung eines Docker-Images und Deployment in eine Kubernetes-Plattform.
 
 ## Generieren mit Swagger
 Um ein Beispiel für einen Rest-Service mit etwas höherer Komplexität und umfangreicheren Objekten zu haben, wurde das Modell der Tesla-Owner-Api
-ausgewählt, die [hier](https://app.swaggerhub.com/apis-docs/fehguy/tesla/2.0.2) in Swagger-Hub modelliert wurde.
+ausgewählt, die [hier](https://app.swaggerhub.com/apis-docs/fehguy/tesla/2.0.2#/info) in Swagger-Hub modelliert wurde.
 
 1. Die zuhehörige Swagger-Yaml-Datei wurde von Swagger-Hub geladen und unter ```src/main/swagger``` gespeichert.
 2. Die Generierungsvorschrift mit dem ```swagger-codegen-maven-plugin``` wurde an das Profil ```swagger-gen```gebunden, das defaultmäßig aktiviert ist.
