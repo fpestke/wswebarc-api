@@ -3,8 +3,9 @@
 
 Praxisbeispiel zur Generierung eines Services mit [swagger-codegen](https://github.com/swagger-api/swagger-codegen) und
 Implementierung als Spring-Boot-Service.
+Erstellung eines Docker-Images und Deployment in eine Kubernetes-Plattform.
 
-## Generierung mit Swagger
+## Generieren mit Swagger
 Um ein Beispiel für einen Rest-Service mit etwas höherer Komplexität und umfangreicheren Objekten zu haben, wurde das Modell der Tesla-Owner-Api
 ausgewählt, die [hier](https://app.swaggerhub.com/apis-docs/fehguy/tesla/2.0.2) in Swagger-Hub modelliert wurde.
 
@@ -39,11 +40,11 @@ ausgewählt, die [hier](https://app.swaggerhub.com/apis-docs/fehguy/tesla/2.0.2)
     ```
 2. docker build
     ```
-     docker build -t chargeattendant/ev-backend .
+     docker build -t ws-crs/ev-backend .
     ```
 3. docker run
     ```
-    docker run -p 8081:8080 -d --name ev-backend -t chargeattendant/ev-backend 
+    docker run -p 8081:8080 -d --name ev-backend -t ws-crs/ev-backend 
     ```
 4. Testen mit [localhost:8081](http://localhost:8081)
 5. Hilfreiche Befehle:
@@ -70,7 +71,7 @@ siehe https://kubernetes.io/docs/tasks/tools/install-minikube/
     ```
 2. container in minikube starten 
     ```
-    kubectl run ev-backend --image=gcr.io/elite-droplet-256314/chargeattendant/ev-backend:latest
+    kubectl run ev-backend --image=gcr.io/elite-droplet-256314/ws-crs/ev-backend:latest
     ``` 
 4. Hat es geklappt?
     ```
@@ -95,12 +96,12 @@ siehe https://cloud.google.com/sdk/install
 4. ev-backend Image in GCP-ContainerRegistry pushen (GCR ist als public definiert, um ein pull ohne Login zu ermöglichen.)
     ```
     gcloud auth configure-docker
-    docker tag chargeattendant/ev-backend gcr.io/[PROJECT-ID]/chargeattendant/ev-backend  (PROJECT-ID ist Projekt, das in GCP erstellt wurde, also elite-droplet-256314)
-    docker push gcr.io/[PROJECT-ID]/chargeattendant/ev-backend
+    docker tag ws-crs/ev-backend gcr.io/[PROJECT-ID]/ws-crs/ev-backend  (PROJECT-ID ist Projekt, das in GCP erstellt wurde, also elite-droplet-256314)
+    docker push gcr.io/[PROJECT-ID]/ws-crs/ev-backend
     ```
 5. Deployment in GKE auf GCP
     ```
-    kubectl run ev-backend --image=gcr.io/elite-droplet-256314/chargeattendant/ev-backend:latest
+    kubectl run ev-backend --image=gcr.io/elite-droplet-256314/ws-crs/ev-backend:latest
     kubectl get po
     ``` 
 6. Service erzeugen, diesmal vom Typ Loadbalancer, um auch externe Zugriffe zu ermöglichen
@@ -144,5 +145,5 @@ siehe https://cloud.google.com/sdk/install
     kubectl apply -f k8s.ingress.yaml  
     kubectl get ingresses
     (DNS-Eintrag für IP-Adresse des ingress services eintragen)
-    http://ev-backend.charging-attendant.com/actuator/info
+    http://ws-crs.dyndns.org/actuator/info
     ``` 
