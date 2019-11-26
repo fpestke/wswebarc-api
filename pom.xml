@@ -124,7 +124,7 @@
                                     <goal>generate</goal>
                                 </goals>
                                 <configuration>
-                                    <inputSpec>file://${project.basedir}/src/main/swagger/fehguy-tesla-2.0.2-swagger.yaml</inputSpec>
+                                    <inputSpec>${project.basedir}/src/main/swagger/fehguy-tesla-2.0.2-swagger.yaml</inputSpec>
                                     <language>spring</language>
                                     <output>${project.basedir}/</output>
                                     <configOptions>

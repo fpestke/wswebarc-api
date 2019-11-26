@@ -17,6 +17,12 @@ schemes:
 - https
 security:
 - bearer: []
+consumes:
+  - application/xml
+  - application/json
+produces:
+  - application/json
+  - application/xml
 paths:
   /api/1/vehicles/{id}/command/set_charge_limit:
     post:
