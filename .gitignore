@@ -27,6 +27,4 @@ src/main/generated/**
 !/ev-backend.iml
 .idea/
 ev-backend.iml
-src/main/generated/
-src/main/java/
 target/
