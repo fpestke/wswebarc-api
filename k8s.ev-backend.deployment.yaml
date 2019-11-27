@@ -8,7 +8,7 @@ metadata:
   name: ev-backend
 spec:
   progressDeadlineSeconds: 2147483647
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 2147483647
   selector:
     matchLabels:
@@ -34,18 +34,17 @@ spec:
           ports:
             - name: ev-backend-port
               containerPort: 8080
-              hostPort: 8081
               protocol: TCP
           readinessProbe:
             httpGet:
               path: /actuator/health
-              port: ev-backend-port
+              port: 8080
             initialDelaySeconds: 5
             timeoutSeconds: 2
           livenessProbe:
             httpGet:
               path: /actuator/health
-              port: ev-backend-port
+              port: 8080
             initialDelaySeconds: 5
             periodSeconds: 10
 
