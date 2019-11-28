@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: charging-attendant
@@ -6,11 +6,19 @@ spec:
   tls:
     - hosts:
       - ev-backend.charging-attendant.com
+      - ev-frontend.charging-attendant.com
       - charging-attendant.com
       secretName: tls-secret
   rules:
-    - http:
-        paths:
-        - backend:
-            serviceName: ev-backend-service
-            servicePort: 8080
+  - host: ev-backend.charging-attendant.com
+    http:
+      paths:
+      - backend:
+          serviceName: ev-backend-service
+          servicePort: 8080
+  - host: ev-frontend.charging-attendant.com
+    http:
+      paths:
+      - backend:
+          serviceName: ev-frontend-service
+          servicePort: 80

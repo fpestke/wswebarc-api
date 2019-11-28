@@ -71,19 +71,20 @@ siehe https://kubernetes.io/docs/tasks/tools/install-minikube/
     ```
 2. container in minikube starten 
     ```
-    kubectl run ev-backend --image=gcr.io/elite-droplet-256314/ws-crs/ev-backend:latest
+    kubectl apply -f k8s.ev-backend.deployment.yaml
+
     ``` 
 4. Hat es geklappt?
     ```
     kubectl get pods
     ```
 5. Service erstellen, um feste IP-Adresse zu haben
-```
-    kubectl expose deployment ev-backend --type=NodePort --name=ev-backend-service --port=8080
+    ```
+    kubectl apply -f k8s.ev-backend-service.service.yaml
     kubectl get service ev-backend-service oder:
     minikube service ev-backend-service --url
     (Zugriff auf die Url, oder CLUSTER-IP:8080)
-```
+    ```
 
 ## Kubernetes on GCP
 1. Installation von gcloud (benötigt Python)
@@ -101,12 +102,12 @@ siehe https://cloud.google.com/sdk/install
     ```
 5. Deployment in GKE auf GCP
     ```
-    kubectl run ev-backend --image=gcr.io/elite-droplet-256314/ws-crs/ev-backend:latest
+    kubectl apply -f k8s.ev-backend.deployment.yaml
     kubectl get po
     ``` 
 6. Service erzeugen, diesmal vom Typ Loadbalancer, um auch externe Zugriffe zu ermöglichen
     ```
-    kubectl expose deployment ev-backend --type=NodePort --name=ev-backend-service --port=8080
+    kubectl apply -f k8s.ev-backend-service.service.yaml
     kubectl get service ev-backend-service
     (Browser-Zugriff über EXTERNAL-IP:8080)
    ```
@@ -125,10 +126,10 @@ siehe https://cloud.google.com/sdk/install
     kubectl get po
     ```
 9. Redeploy
-   ```
-   application.properties ändern zu Info-Version
-   mvn und docker-build tag und deploy
-   Trick: kubectl patch deployment ev-backend -p "{\"spec\": {\"template\": {\"metadata\": { \"labels\": {  \"redeploy\": \"$(date +%s)\"}}}}}"
+   ```shell script
+   # application.properties ändern zu Info-Version
+   # mvn und docker-build tag und deploy
+   # Trick: kubectl patch deployment ev-backend -p "{\"spec\": {\"template\": {\"metadata\": { \"labels\": {  \"redeploy\": \"$(date +%s)\"}}}}}"
    kubectl get rs
    kubectl get po
    ```
@@ -141,7 +142,8 @@ siehe https://cloud.google.com/sdk/install
     kubectl apply -f k8s.ev-backend-service.service.yaml
     ```  
 11. Ingress Service
-    ```
+    ```shell script
+    # kubectl create secret tls NAME --cert=path/to/cert/file --key=path/to/key/file
     kubectl apply -f k8s.ingress.yaml  
     kubectl get ingresses
     (DNS-Eintrag für IP-Adresse des ingress services eintragen)

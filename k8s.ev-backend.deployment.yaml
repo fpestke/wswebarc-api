@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
@@ -7,9 +7,7 @@ metadata:
     run: ev-backend
   name: ev-backend
 spec:
-  progressDeadlineSeconds: 2147483647
-  replicas: 2
-  revisionHistoryLimit: 2147483647
+  replicas: 1
   selector:
     matchLabels:
       run: ev-backend
@@ -19,13 +17,9 @@ spec:
       maxUnavailable: 1
     type: RollingUpdate
   template:
-    metadata:
-      labels:
-        redeploy: "1574553112"
-        run: ev-backend
     spec:
       containers:
-        - image: gcr.io/elite-droplet-256314/chargeattendant/ev-backend:latest
+        - image: gcr.io/elite-droplet-256314/ws-crs/ev-backend:latest
           imagePullPolicy: Always
           name: ev-backend
           resources: {}
@@ -47,7 +41,6 @@ spec:
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 10
-
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
