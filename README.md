@@ -36,7 +36,7 @@ ausgewählt, die [hier](https://app.swaggerhub.com/apis-docs/fehguy/tesla/2.0.2#
     
     LABEL SERVICE_CHECK_HTTP=/actuator/health
     EXPOSE 8080
-    ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+    ENTRYPOINT ["java","-jar","/app.jar"]
     ```
 2. docker build
     ```
@@ -97,8 +97,8 @@ siehe https://cloud.google.com/sdk/install
 4. ev-backend Image in GCP-ContainerRegistry pushen (GCR ist als public definiert, um ein pull ohne Login zu ermöglichen.)
     ```
     gcloud auth configure-docker
-    docker tag ws-crs/ev-backend gcr.io/[PROJECT-ID]/ws-crs/ev-backend  (PROJECT-ID ist Projekt, das in GCP erstellt wurde, also elite-droplet-256314)
-    docker push gcr.io/[PROJECT-ID]/ws-crs/ev-backend
+    docker tag ws-crs/ev-backend gcr.io/$PROJECT_ID/ws-crs/ev-backend  (PROJECT-ID ist Projekt, das in GCP erstellt wurde, also elite-droplet-256314)
+    docker push gcr.io/$PROJECT_ID/ws-crs/ev-backend
     ```
 5. Deployment in GKE auf GCP
     ```

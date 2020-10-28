@@ -14,3 +14,4 @@ spec:
     run: ev-backend
   sessionAffinity: None
   type: NodePort
+#  type: LoadBalancer

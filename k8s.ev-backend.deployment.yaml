@@ -17,6 +17,9 @@ spec:
       maxUnavailable: 1
     type: RollingUpdate
   template:
+    metadata:
+      labels:
+        run: ev-backend
     spec:
       containers:
         - image: gcr.io/elite-droplet-256314/ws-crs/ev-backend:latest
