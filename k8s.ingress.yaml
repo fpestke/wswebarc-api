@@ -16,9 +16,3 @@ spec:
       - backend:
           serviceName: ev-backend-service
           servicePort: 8080
-  - host: ev-frontend.charging-attendant.com
-    http:
-      paths:
-      - backend:
-          serviceName: ev-frontend-service
-          servicePort: 80

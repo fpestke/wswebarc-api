@@ -91,7 +91,7 @@ siehe https://kubernetes.io/docs/tasks/tools/install-minikube/
 siehe https://cloud.google.com/sdk/install
 2. gcloud initialisieren
     ```
-    gcloud init --console-only (ggf. vorher Proxykonfiguration vornehmen)
+    ≠ (ggf. vorher proxykonfiguration vornehmen)
     ```
 3. Verbindung zum Cluster, in GCP-Oberfläche Verbinden auswählen und dann Shell-Befehl kopieren und ausführen
 4. ev-backend Image in GCP-ContainerRegistry pushen (GCR ist als public definiert, um ein pull ohne Login zu ermöglichen.)
@@ -104,6 +104,8 @@ siehe https://cloud.google.com/sdk/install
     ```
     kubectl apply -f k8s.ev-backend.deployment.yaml
     kubectl get po
+    kubectl exec POD_NAME --stdin --tty -- /bin/bash
+    kubectl decribe po POD_NAME
     ``` 
 6. Service erzeugen, diesmal vom Typ Loadbalancer, um auch externe Zugriffe zu ermöglichen
     ```
